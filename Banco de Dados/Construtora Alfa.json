@@ -1,0 +1,114 @@
+{
+    "nome": "Construtora Alfa S.A.",
+    "nome_fantasia": "Alfa Incorporações",
+    "codigo": 10,
+    "cnpj": "23.456.789/0001-01",
+    "telefones": [
+        "(51)3333-3334",
+        "(51)3333-3335",
+        "(51)3333-3336",
+        "(11)8542-1213"
+    ],
+    "obras": [
+        {
+            "codigo": 115,
+            "nome": "Condomínio dos Lagos",
+            "endereco": "Travessa dos Lagos, 100",
+            "trabalhadores": [
+                {
+                    "nome": "José Chaves",
+                    "salario": 2200.00,
+                    "cpf": "101.101.101-34"
+                },
+                {
+                    "nome": "Pedro Passos",
+                    "salario": 3502.18,
+                    "cpf": "102.102.102-91"
+                },
+                {
+                    "nome": "Maria Aparecida",
+                    "salario": 2800.87,
+                    "cpf": "103.103.103-18"
+                },
+                {
+                    "nome": "Augusto Dias",
+                    "salario": 1700.42,
+                    "cpf": "106.106.106-82"
+                },
+                {
+                    "nome": "Beatriz Almeida",
+                    "salario": 3700.24,
+                    "cpf": "107.107.107-75"
+                }
+            ],
+            "equipamentos": [
+                {
+                    "codigo": 301,
+                    "nome": "Betoneira",
+                    "valor": 100.0,
+                    "categoria": "Concretagem",
+                    "inicioLocacao": "07/03/2022",
+                    "fimLocacao": "28/03/2022"
+                },
+                {
+                    "codigo": 304,
+                    "nome": "Guincho",
+                    "valor": 250.0,
+                    "categoria": "Acesso e Elevação",
+                    "inicioLocacao": "10/04/2022",
+                    "fimLocacao": "27/04/2022"
+                },
+                {
+                    "codigo": 305,
+                    "nome": "Gerador",
+                    "valor": 451.0,
+                    "categoria": "Geradores e Compressores",
+                    "inicioLocacao": "10/03/2022",
+                    "fimLocacao": "11/03/2022"
+                },
+                {
+                    "codigo": 309,
+                    "nome": "Plaina",
+                    "valor": 25.0,
+                    "categoria": "Ferramenta Elétrica",
+                    "inicioLocacao": "01/05/2022",
+                    "fimLocacao": "31/05/2022"
+                }
+            ]
+        },
+        {
+            "codigo": 116,
+            "nome": "Condomínio Araras",
+            "endereco": "Avenida Rio Grande, 22",
+            "trabalhadores": [
+                {
+                    "nome": "Carlos Dutra",
+                    "salario": 3100.00,
+                    "cpf": "104.104.104-52"
+                },
+                {
+                    "nome": "Mário Pires",
+                    "salario": 4323.29,
+                    "cpf": "105.105.105-85"
+                },
+                {
+                    "nome": "Márcia Almeida",
+                    "salario": 2456.17,
+                    "cpf": "108.108.108-94"
+                },
+                {
+                    "nome": "Gomes Junior",
+                    "salario": 2129.98,
+                    "cpf": "109.109.109-94"
+                },
+                {
+                    "nome": "Alfredo Luz",
+                    "salario": 3756.87,
+                    "cpf": "110.110.110-00"
+                }
+            ],
+            "equipamentos": []
+        }
+    ]
+
+}

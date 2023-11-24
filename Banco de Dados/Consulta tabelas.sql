@@ -44,7 +44,6 @@ WHERE NOT EXISTS (
 ORDER BY codigo
 
 -- Listar as categorias de equipamentos utilizadas nas obras da construtora ALFA.
-
 SELECT cat.codigo, cat.descricao
 FROM Categoria cat
     INNER JOIN Equipamento e ON e.id_categoria = cat.codigo
