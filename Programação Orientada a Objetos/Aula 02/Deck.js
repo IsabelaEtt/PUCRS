@@ -1,7 +1,8 @@
 class Deck {
     #cartas
 
-    get cartas() { return this.#cartas }
+    get cartas() { return this.#cartas.values() }
+    // values() retorna um iterador, não uma referência da classe, mantendo o encapsulamento
 
     adicionarCarta(carta) {
         this.#cartas.push(carta)
