@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "name": "projeto-poo-fase-1",
+  "version": "1.0.0",
+  "description": "Fase 01 do projeto desenvolvido para a disciplina de Programação Orientada a Objetos do curso de Análise e Desenvolvimento de Sistemas da PUCRS",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Isabela Canelas Ett",
+  "license": "ISC",
+  "dependencies": {
+    "bycontract": "^2.0.11"
+  }
+}
