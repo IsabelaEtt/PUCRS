@@ -10,7 +10,7 @@ export default class ServicoAeronaves {
         this.#aeronaves = []
     }
 
-    criarAeronave () {
+    cadastrarAeronave () {
         console.log(`\n--- Cadastro de Aeronaves ---`)
 
         const prefixo = this.#pegarPrefixo()
@@ -39,7 +39,7 @@ export default class ServicoAeronaves {
 
         this.#aeronaves.push(aeronave)
 
-        console.log('Aeronave criada com sucesso!')
+        console.log('Aeronave cadasrada com sucesso!')
         console.log(`Aeronave - ${aeronave.toString()}`)
     }
 
@@ -47,7 +47,7 @@ export default class ServicoAeronaves {
         const prefixo = pegarEntradaUsuario('Qual o prefixo da nova aeronave?')
 
         if (this.checarSeAeronaveExiste(prefixo)) {
-            console.log(`Prefixo ${prefixo} já está em uso, por favor escolha outro...`)
+            console.log(`Aeronave ${prefixo} já está cadastrada...`)
             return this.#pegarPrefixo()
         }
 
