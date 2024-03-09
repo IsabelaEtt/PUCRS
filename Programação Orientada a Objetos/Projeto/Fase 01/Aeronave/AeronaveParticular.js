@@ -2,13 +2,13 @@ import { validate } from "bycontract";
 import Aeronave from "./Aeronave.js";
 
 export default class AeronaveParticular extends Aeronave {
-    #empresa 
+    #respManutencao 
 
-    constructor (prefixo, velocidade, autonomia, empresa) {
+    constructor (prefixo, velocidade, autonomia, respManutencao) {
         validate(arguments, ['string', 'number', 'number', 'string'])
 
-        super(prefixo, 'particular', velocidade, autonomia)
-        this.#empresa = empresa
+        super(prefixo, 'PP', velocidade, autonomia)
+        this.#respManutencao = respManutencao
     }
 
     checarAltitudesPermitidas () {
@@ -18,6 +18,6 @@ export default class AeronaveParticular extends Aeronave {
     }
 
     toString () {
-        return super.toString() + `; empresa: ${this.#empresa}`
+        return super.toString() + `; resonsável manutenção: ${this.#respManutencao}`
     }
 }

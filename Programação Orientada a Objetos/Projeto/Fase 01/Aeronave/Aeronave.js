@@ -1,4 +1,5 @@
 import { validate } from "bycontract";
+import { tiposAeronave } from "./aeronaveUtils.js"
 
 export default class Aeronave {
     #prefixo 
@@ -8,11 +9,22 @@ export default class Aeronave {
 
     constructor (prefixo, tipo, velocidade, autonomia) {
         validate(arguments, ['string', 'string', 'number', 'number'])
-
+        this.validarTipo(tipo)
+    
         this.#prefixo = prefixo
         this.#tipo = tipo
         this.#velocidade = velocidade
         this.#autonomia = autonomia
+    }
+
+    prefixo() { return this.#prefixo }
+
+    velocidade() { return this.#velocidade }
+
+    validarTipo (tipo) {
+        if (!tiposAeronave.includes(tipo)) {
+            throw new Error(`Tipo de aeronave inválido, deve ser ${tiposAeronave.join('|')}`)
+        }
     }
 
     checarAltitudesPermitidas () {
@@ -28,6 +40,6 @@ export default class Aeronave {
     }
 
     toString () {
-        return `Aeronave - prefixo: ${this.#prefixo}; tipo: ${this.#tipo}; velocidade: ${this.#velocidade}km/h; autonomia: ${this.#autonomia}km; horarios permitidos: ${this.checarHorariosPermitidos().join(', ')}; altitudes permitidas: ${this.checarAltitudesPermitidas().join(', ')}`
+        return `prefixo: ${this.#prefixo}; tipo: ${this.#tipo}; velocidade: ${this.#velocidade}km/h; autonomia: ${this.#autonomia}km; horarios permitidos: ${this.checarHorariosPermitidos().join(', ')}; altitudes permitidas: ${this.checarAltitudesPermitidas().join(', ')}`
     }
 }

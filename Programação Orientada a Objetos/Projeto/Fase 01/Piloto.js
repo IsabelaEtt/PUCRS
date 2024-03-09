@@ -12,6 +12,8 @@ export default class Piloto {
         this.#status = status
     }
 
+    matricula () { return this.#matricula }
+
     toString () {
         return `Piloto - nome: ${this.#nome}; matrcula: ${this.#matricula}; status habilitação: ${this.#status ? 'ativa' : 'inativa'}`
     }
