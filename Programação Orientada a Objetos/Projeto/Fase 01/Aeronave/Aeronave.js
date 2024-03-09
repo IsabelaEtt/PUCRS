@@ -19,7 +19,7 @@ export default class Aeronave {
 
     prefixo() { return this.#prefixo }
 
-    velocidade() { return this.#velocidade }
+    velocidade () { return this.#velocidade }
 
     validarTipo (tipo) {
         if (!tiposAeronave.includes(tipo)) {

@@ -49,7 +49,7 @@ export default class ServicoPiloto {
         return status === 1
     }
 
-    checarSePilotoExiste(matricula) {
+    checarSePilotoExiste (matricula) {
         return this.#pilotos.findIndex(a => a.matricula() === matricula) != -1
     }
 

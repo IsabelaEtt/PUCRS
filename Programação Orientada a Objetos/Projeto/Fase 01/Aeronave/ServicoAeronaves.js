@@ -114,7 +114,7 @@ export default class ServicoAeronaves {
         return pesoMax
     }
 
-    checarSeAeronaveExiste(prefixo) {
+    checarSeAeronaveExiste (prefixo) {
         return this.#aeronaves.findIndex(a => a.prefixo() === prefixo) != -1
     }
 
