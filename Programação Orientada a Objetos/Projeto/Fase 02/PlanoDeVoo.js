@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'; // npm para manipular datas
+
 export default class PlanoDeVoo {
     #identificador
     #matriculaPiloto
@@ -11,6 +13,7 @@ export default class PlanoDeVoo {
     static #identificadorGen = 0
 
     constructor (piloto, aeronave, data, aerovia, altitude) {
+        validate(arguments, '#Piloto')// talvez assim pegue o tipo que eu criei
         PlanoDeVoo.#identificadorGen++
         this.#identificador = PlanoDeVoo.#identificadorGen
         this.#matriculaPiloto = piloto.matricula()

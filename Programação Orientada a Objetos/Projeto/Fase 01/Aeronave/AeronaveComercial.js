@@ -1,6 +1,6 @@
-import Aeronave from "./Aeronave.js";
-import { validate } from "bycontract";
-import { tiposAeronaveComercial } from "./aeronaveUtils.js"
+import Aeronave from './Aeronave.js';
+import { validate } from 'bycontract';
+import { tiposAeronaveComercial } from './aeronaveUtils.js'
 
 export default class AeronaveComercial extends Aeronave {
     #nomeCIA

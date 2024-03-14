@@ -1,5 +1,5 @@
-import { validate } from "bycontract";
-import { tiposAeronave } from "./aeronaveUtils.js"
+import { validate } from 'bycontract';
+import { tiposAeronave } from './aeronaveUtils.js'
 
 export default class Aeronave {
     #prefixo 

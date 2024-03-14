@@ -1,5 +1,5 @@
-import { validate } from "bycontract";
-import Aeronave from "./Aeronave.js";
+import { validate } from 'bycontract';
+import Aeronave from './Aeronave.js';
 
 export default class AeronaveParticular extends Aeronave {
     #respManutencao 

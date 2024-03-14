@@ -1,4 +1,4 @@
-import { validate } from "bycontract";
+import { validate } from 'bycontract';
 
 export default class Piloto {
     #nome

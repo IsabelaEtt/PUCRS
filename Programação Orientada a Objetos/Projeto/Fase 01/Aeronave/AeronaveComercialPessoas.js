@@ -1,5 +1,5 @@
-import { validate } from "bycontract";
-import AeronaveComercial from "./AeronaveComercial.js";
+import { validate } from 'bycontract';
+import AeronaveComercial from './AeronaveComercial.js';
 
 export default class AeronaveComercialPessoas extends AeronaveComercial {
     #maxPassageiros
