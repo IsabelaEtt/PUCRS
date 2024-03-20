@@ -15,3 +15,4 @@ while (buf = arq.next()) {
 
 // Para o projeto, salvar os dados em csv
 // Criar uma classe responsável por ler csvs, recebe por param dicionario dos campos as classes de servicos recebem array dos dados lidos e tratam para salvar da forma certa
+// Pode validar headers ve se ta de acordo com o esperado
