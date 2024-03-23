@@ -1,4 +1,4 @@
-import Piloto from './Piloto.js';
+import Piloto from '../Piloto/Piloto.js';
 import { validarOpcaoMenu, pegarEntradaUsuario } from '../utils.js'
 
 export default class ServicoPiloto {

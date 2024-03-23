@@ -1,4 +1,4 @@
-import Aerovia from './Aerovia.js'
+import Aerovia from '../Aerovia/Aerovia.js'
 import { pegarEntradaUsuario } from '../utils.js'
 
 export default class ServicoAerovias {

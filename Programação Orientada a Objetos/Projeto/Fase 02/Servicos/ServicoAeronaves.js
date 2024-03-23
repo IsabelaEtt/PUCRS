@@ -1,6 +1,6 @@
-import AeronaveParticular from './AeronaveParticular.js';
-import AeronaveComercialPessoas from './AeronaveComercialPessoas.js';
-import AeronaveComercialCarga from './AeronaveComercialCarga.js';
+import AeronaveParticular from '../Aeronave/AeronaveParticular.js';
+import AeronaveComercialPessoas from '../Aeronave/AeronaveComercialPessoas.js';
+import AeronaveComercialCarga from '../Aeronave/AeronaveComercialCarga.js';
 import { validarOpcaoMenu, pegarEntradaUsuario } from '../utils.js'
 
 export default class ServicoAeronaves {
