@@ -1,4 +1,4 @@
-import nReadlines from "n-readlines"
+import nReadlines from 'n-readlines'
 
 // funcionando igual ao comando cat `cat texto.txt`
 const narq = 'texto.txt'

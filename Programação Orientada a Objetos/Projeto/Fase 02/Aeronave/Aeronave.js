@@ -1,6 +1,6 @@
 import { tiposAeronave } from './aeronaveUtils.js'
 import * as Erros from '../Erros/ErroAeronave.js'
-import * as validar from "../Utils/validarDados.js"
+import * as validar from '../Utils/validarDados.js'
 
 export default class Aeronave {
     #prefixo 

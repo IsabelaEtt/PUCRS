@@ -1,6 +1,6 @@
 import AeronaveComercial from './AeronaveComercial.js';
 import * as Erros from '../Erros/ErroAeronave.js'
-import * as validar from "../Utils/validarDados.js"
+import * as validar from '../Utils/validarDados.js'
 
 export default class AeronaveComercialCarga extends AeronaveComercial {
     #pesoMax
