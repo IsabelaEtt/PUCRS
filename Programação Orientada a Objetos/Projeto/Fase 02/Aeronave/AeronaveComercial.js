@@ -1,21 +1,17 @@
 import Aeronave from './Aeronave.js';
-import { validate } from 'bycontract';
 import { tiposAeronaveComercial } from './aeronaveUtils.js'
+import * as Erros from '../Erros/ErroAeronave.js'
+import * as validar from "../Utils/validarDados.js"
 
 export default class AeronaveComercial extends Aeronave {
     #nomeCIA
 
     constructor (prefixo, tipo, velocidade, autonomia, nomeCIA) {
-        validate(arguments, ['string', 'string', 'number', 'number', 'string'])
+        if (!nomeCIA) { throw new Erros.CampoNaoRecebido('nomeCIA') }
+        if (!validar.validarTipo(tipo, tiposAeronaveComercial)) { throw new Erros.TipoInvalido(tipo, tiposAeronaveComercial) }
+
         super(prefixo, tipo, velocidade, autonomia)
-
         this.#nomeCIA = nomeCIA
-    }
-
-    validarTipo (tipo) {
-        if (!tiposAeronaveComercial.includes(tipo)) {
-            throw new Error(`Tipo de aeronave comercial inválido, deve ser ${tiposAeronaveComercial.join('|')}`)
-        }
     }
 
     toString () {

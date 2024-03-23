@@ -1,11 +1,11 @@
-import { validate } from 'bycontract';
 import Aeronave from './Aeronave.js';
+import * as Erros from '../Erros/ErroAeronave.js'
 
 export default class AeronaveParticular extends Aeronave {
     #respManutencao 
 
     constructor (prefixo, velocidade, autonomia, respManutencao) {
-        validate(arguments, ['string', 'number', 'number', 'string'])
+        if (!respManutencao) { throw new Erros.CampoNaoRecebido('respManutencao') }
 
         super(prefixo, 'PP', velocidade, autonomia)
         this.#respManutencao = respManutencao

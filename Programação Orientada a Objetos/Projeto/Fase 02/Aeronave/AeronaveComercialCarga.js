@@ -1,11 +1,12 @@
-import { validate } from 'bycontract';
 import AeronaveComercial from './AeronaveComercial.js';
+import * as Erros from '../Erros/ErroAeronave.js'
+import * as validar from "../Utils/validarDados.js"
 
 export default class AeronaveComercialCarga extends AeronaveComercial {
     #pesoMax
 
     constructor (prefixo, velocidade, autonomia, nomeCIA, pesoMax) {
-        validate(arguments, ['string', 'number', 'number', 'string', 'number'])
+        if (!validar.validarNumero(pesoMax)) { throw new Erros.PesoMaxInvalido(pesoMax) }
 
         super(prefixo, 'CC', velocidade, autonomia, nomeCIA)
         this.#pesoMax = pesoMax

@@ -1,5 +1,6 @@
-import { validate } from 'bycontract';
 import { tiposAeronave } from './aeronaveUtils.js'
+import * as Erros from '../Erros/ErroAeronave.js'
+import * as validar from "../Utils/validarDados.js"
 
 export default class Aeronave {
     #prefixo 
@@ -8,8 +9,10 @@ export default class Aeronave {
     #autonomia
 
     constructor (prefixo, tipo, velocidade, autonomia) {
-        validate(arguments, ['string', 'string', 'number', 'number'])
-        this.validarTipo(tipo)
+        if (!prefixo) { throw new Erros.CampoNaoRecebido('prefixo') }
+        if (!validar.validarTipo(tipo, tiposAeronave)) { throw new Erros.TipoInvalido(tipo, tiposAeronave) }
+        if (!validar.validarNumero(velocidade)) { throw new Erros.VelocidadeInvalida(velocidade) }
+        if (!validar.validarNumero(autonomia)) { throw new Erros.AutonomiaInvalida(autonomia) }
     
         this.#prefixo = prefixo
         this.#tipo = tipo
@@ -20,13 +23,6 @@ export default class Aeronave {
     prefixo() { return this.#prefixo }
 
     velocidade () { return this.#velocidade }
-
-    validarTipo (tipo) {
-        if (!tiposAeronave.includes(tipo)) {
-            throw new Error(`Tipo de aeronave inválido, deve ser ${tiposAeronave.join('|')}`)
-            // seria interessante criar uma subclasse de erro para mapear todos os erros possíveis da aplicação
-        }
-    }
 
     checarAltitudesPermitidas () {
         const alturas = []
