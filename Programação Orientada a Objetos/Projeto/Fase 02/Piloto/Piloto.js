@@ -1,15 +1,17 @@
-import { validate } from 'bycontract';
+import * as Erros from '../Erros/ErroPiloto.js'
 
 export default class Piloto {
-    #nome
     #matricula
+    #nome
     #habilitacaoAtiva
 
     constructor (matricula, nome, habilitacaoAtiva) {
-        validate(arguments, ['string', 'string', 'boolean'])
+        if (!matricula) { throw new Erros.CampoNaoRecebido('matricula') }
+        if (!nome) { throw new Erros.CampoNaoRecebido('nome') }
+
         this.#matricula = matricula
         this.#nome = nome
-        this.#habilitacaoAtiva = habilitacaoAtiva
+        this.#habilitacaoAtiva = habilitacaoAtiva === true
     }
 
     matricula () { return this.#matricula }
