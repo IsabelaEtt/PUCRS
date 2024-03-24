@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/IsabelaEtt/PUCRS/issues"
   },
-  "homepage": "https://github.com/IsabelaEtt/PUCRS#readme"
+  "homepage": "https://github.com/IsabelaEtt/PUCRS#readme",
+  "dependencies": {
+    "n-readlines": "^1.0.1"
+  }
 }

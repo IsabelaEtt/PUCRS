@@ -14,7 +14,7 @@ for (const value of map.values()) {
     console.log('VALUE: ', value)
 }
 
-console.log(map.values()) // retorna as chaves em array sem os values
+console.log(map.keys()) // retorna as chaves em array sem os values
 for (const key of map.keys()) {
     console.log('KEY: ', key)
 }

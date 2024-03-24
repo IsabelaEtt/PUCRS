@@ -1,4 +1,4 @@
-import { tiposAeronave } from './aeronaveUtils.js'
+import { tiposAeronave } from '../Utils/constantes.js'
 import * as Erros from '../Erros/ErroAeronave.js'
 import * as validar from '../Utils/validarDados.js'
 
