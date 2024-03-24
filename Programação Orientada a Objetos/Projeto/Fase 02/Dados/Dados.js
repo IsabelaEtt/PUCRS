@@ -7,7 +7,17 @@ export default class Dados {
     lerDados (nomeDado) {
         if (!tiposDados.has(nomeDado)) { throw new Erros.TipoInvalido(nomeDado, tiposDados.keys()) }
         const info = tiposDados.get(nomeDado)
-        const arquivo = new nReadlines(info.nome)
+       
+        let arquivo
+        try { arquivo = new nReadlines(info.nome)
+        } catch(e) {
+            if (e.code == 'ENOENT') {
+                console.log(`Ainda não existe arquivo para os dados de ${nomeDado}`)
+                return []
+            }
+
+            throw e
+        }
 
         const headersEsperados = info.headers.join(',')
         const headersArquivo = arquivo.next()
