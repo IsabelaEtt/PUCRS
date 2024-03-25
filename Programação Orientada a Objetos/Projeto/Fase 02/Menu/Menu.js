@@ -1,9 +1,7 @@
 import ServicoAeronaves from '../Servico/ServicoAeronaves.js'
 import ServicoPilotos from '../Servico/ServicoPilotos.js'
 import ServicoAerovias from '../Servico/ServicoAerovias.js'
-import { validarOpcaoMenu, pegarEntradaUsuario } from '../utils.js'
-// trabalhar ingestão de dependência para não ficar fazendo esses imports
-// import * as utils from '../utils.js' -> forma de importar tudo, sem ter que ficar declarando todas as funções
+import { validarOpcaoMenu, pegarEntradaUsuario } from '../Utils/receberDados.js'
 
 export default class Menu {
     #servicoAeronaves

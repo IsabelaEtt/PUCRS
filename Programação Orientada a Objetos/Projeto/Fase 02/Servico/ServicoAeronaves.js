@@ -2,7 +2,7 @@ import AeronaveParticular from '../Aeronave/AeronaveParticular.js';
 import AeronaveComercialPessoas from '../Aeronave/AeronaveComercialPessoas.js';
 import AeronaveComercialCarga from '../Aeronave/AeronaveComercialCarga.js';
 import Dados from '../Dados/Dados.js'
-import { validarOpcaoMenu, pegarEntradaUsuario } from '../utils.js'
+import { validarOpcaoMenu, pegarEntradaUsuario } from '../Utils/receberDados.js'
 import { tiposAeronave, tipoAeronaveComercialCarga, tipoAeronaveComercialPessoas, tipoAeronaveParticular } from '../Utils/constantes.js'
 import * as validar from '../Utils/validarDados.js'
 

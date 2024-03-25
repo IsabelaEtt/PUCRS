@@ -1,6 +1,6 @@
 import Aerovia from '../Aerovia/Aerovia.js'
 import Dados from '../Dados/Dados.js'
-import { pegarEntradaUsuario } from '../utils.js'
+import { pegarEntradaUsuario } from '../Utils/receberDados.js'
 
 export default class ServicoAerovias {
     #aerovias

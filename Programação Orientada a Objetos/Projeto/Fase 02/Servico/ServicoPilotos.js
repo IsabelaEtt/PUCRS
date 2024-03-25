@@ -1,6 +1,6 @@
 import Piloto from '../Piloto/Piloto.js';
 import Dados from '../Dados/Dados.js'
-import { validarOpcaoMenu, pegarEntradaUsuario } from '../utils.js'
+import { validarOpcaoMenu, pegarEntradaUsuario } from '../Utils/receberDados.js'
 
 export default class ServicoPiloto {
     #pilotos
