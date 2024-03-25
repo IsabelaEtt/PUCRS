@@ -7,7 +7,7 @@ export default class Aerovia {
     #destino
     #tamanho
 
-    constructor (id, origem, destino, tamanho) {
+    constructor ({ id, origem, destino, tamanho }) {
         if (!id) { throw new Erros.CampoNaoRecebido('id') }
         if (!origem) { throw new Erros.CampoNaoRecebido('origem') }
         if (!destino) { throw new Erros.CampoNaoRecebido('destino') }
@@ -19,7 +19,13 @@ export default class Aerovia {
         this.#tamanho = tamanho
     }
 
-    id () { return this.#id }
+    get id () { return this.#id }
+
+    get origem () { return this.#origem }
+
+    get destino () { return this.#destino }
+
+    get tamanho () { return this.#tamanho }
 
     toString () {
         return `id: ${this.#id}; aeroporto origem: ${this.#origem}; aeroporto destino: ${this.#destino}; tamanho: ${this.#tamanho}km`

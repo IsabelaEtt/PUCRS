@@ -1,46 +1,54 @@
 import AeronaveParticular from '../Aeronave/AeronaveParticular.js';
 import AeronaveComercialPessoas from '../Aeronave/AeronaveComercialPessoas.js';
 import AeronaveComercialCarga from '../Aeronave/AeronaveComercialCarga.js';
+import Dados from '../Dados/Dados.js'
 import { validarOpcaoMenu, pegarEntradaUsuario } from '../utils.js'
+import { tiposAeronave, tipoAeronaveComercialCarga, tipoAeronaveComercialPessoas, tipoAeronaveParticular } from '../Utils/constantes.js'
+import * as validar from '../Utils/validarDados.js'
 
 export default class ServicoAeronaves {
     #aeronaves
+    #dados
 
     constructor () {
         this.#aeronaves = []
+        this.#dados = new Dados()
+
+        this.#pegarAeronaves()
     }
 
     cadastrarAeronave () {
         console.log(`\n--- Cadastro de Aeronaves ---`)
 
-        const prefixo = this.#pegarPrefixo()
-        const tipo = this.#pegarTipo()
-        const velocidade = this.#pegarVelocidade()
-        const autonomia = this.#pegarAutonomia()
+        const aeronave = {
+            prefixo: this.#pegarPrefixo(),
+            velocidade: this.#pegarVelocidade(),
+            autonomia: this.#pegarAutonomia()
+        }
 
-        let aeronave;
+        const tipo = this.#pegarTipo()
+
+        let ClasseAeronave
 
         if (tipo === 1) {
-            const respManutencao = pegarEntradaUsuario('Qual o nome da empresa responsável pela manutenção?')
-            aeronave = new AeronaveParticular(prefixo, velocidade, autonomia, respManutencao)
+            aeronave.respManutencao = pegarEntradaUsuario('Qual o nome da empresa responsável pela manutenção?')
+            ClasseAeronave = AeronaveParticular
         } else {
-            const nomeCIA = pegarEntradaUsuario('Qual o nome da companhia aérea?')
+            aeronave.nomeCIA = pegarEntradaUsuario('Qual o nome da companhia aérea?')
 
             if (tipo === 2) {
-                const maxPassageiros = this.#pegarMaxPassageiros()
-                aeronave = new AeronaveComercialPessoas(prefixo, velocidade, autonomia, nomeCIA, maxPassageiros) // deveria ter um try catch aqui
+                aeronave.maxPassageiros = this.#pegarMaxPassageiros()
+                ClasseAeronave = AeronaveComercialPessoas
             }
     
             if (tipo === 3) {
-                const pesoMax = this.#pegarPesoMax()
-                aeronave = new AeronaveComercialCarga(prefixo, velocidade, autonomia, nomeCIA, pesoMax) // deveria ter um try catch aqui
+                aeronave.pesoMax = this.#pegarPesoMax()
+                ClasseAeronave = AeronaveComercialCarga
             }
         }
 
-        this.#aeronaves.push(aeronave)
+        this.#criarInstanciaAeronave(ClasseAeronave, aeronave)
 
-        console.log('Aeronave cadasrada com sucesso!')
-        console.log(`Aeronave - ${aeronave.toString()}`)
     }
 
     #pegarPrefixo () {
@@ -115,7 +123,7 @@ export default class ServicoAeronaves {
     }
 
     checarSeAeronaveExiste (prefixo) {
-        return this.#aeronaves.findIndex(a => a.prefixo() === prefixo) != -1
+        return this.#aeronaves.findIndex(a => a.prefixo === prefixo) != -1
     }
 
     listarAeronaves () {
@@ -123,5 +131,48 @@ export default class ServicoAeronaves {
         for (const aeronave of this.#aeronaves) {
             console.log(`- ${aeronave.toString()}`)
         }
+    }
+
+    #pegarAeronaves () {
+        console.log('\nPegando aeronaves salvas...')
+
+        let aeronavesSalvas
+        try { aeronavesSalvas = this.#dados.lerDados('aeronave')
+        } catch(e) { return console.log(`Não foi possível pegar as aeronaves salvas: ${e.message}`) }
+
+        for (const aeronave of aeronavesSalvas) {
+            const { prefixo, tipo } = aeronave
+
+            if (this.checarSeAeronaveExiste(prefixo)) {
+                console.log(`Aeronave ${prefixo} já está cadastrada, pulando...`)
+            }
+           
+            if (!validar.validarTipo(tipo, tiposAeronave)) {
+                console.log(`Aeronave ${prefixo} com tipo invalido, pulando...`)
+            }
+
+            let ClasseAeronave
+            if (tipo == tipoAeronaveParticular) { ClasseAeronave = AeronaveParticular }
+            if (tipo == tipoAeronaveComercialCarga) { ClasseAeronave = AeronaveComercialCarga }
+            if (tipo == tipoAeronaveComercialPessoas) { ClasseAeronave = AeronaveComercialPessoas }
+
+            this.#criarInstanciaAeronave(ClasseAeronave, aeronave)
+        }
+    }
+
+    #criarInstanciaAeronave (ClasseAeronave, params) {
+        let novaAeronave
+        try { novaAeronave = new ClasseAeronave(params)
+        } catch(e) { return console.log(`Não foi possível criar a aeronave ${params.prefixo}: ${e.message}`) }
+
+        this.#aeronaves.push(novaAeronave)
+        console.log(`Aeronave ${novaAeronave.prefixo} cadastrada com sucesso!`)
+    }
+
+    salvarDados () {
+        console.log('Salvando aeronaves...')
+
+        try { this.#dados.gravarDados('aeronave', this.#aeronaves)
+        } catch(e) { return console.log(`Não foi possível salvar as aeronaves: ${e.message}`) }
     }
 }

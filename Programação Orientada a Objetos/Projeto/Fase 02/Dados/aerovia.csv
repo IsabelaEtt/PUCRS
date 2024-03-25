@@ -1,0 +1,3 @@
+id,origem,destino,tamanho
+GRU-POA,GRU,POA,1000
+POA-GRU,POA,GRU,1000

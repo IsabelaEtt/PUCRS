@@ -23,7 +23,7 @@ export default class Dados {
         const headersArquivo = arquivo.next()
         if (headersArquivo != headersEsperados) { throw new Erros.HeadersInvalido(headersArquivo, headersEsperados) }
 
-        let buf = arquivo.next()
+        let buf
         const dadosRecuperados = []
 
         while(buf = arquivo.next()) {
@@ -52,7 +52,8 @@ export default class Dados {
         for (const item of dados) {
             let novaLinha = ''
             for (let i = 0; i < headers.length; i++) {
-                novaLinha += item[headers[i]] === undefined ? '' : item[headers[i]]
+                const valor = item[headers[i]]
+                novaLinha += valor === undefined ? '' : valor
                 if (i < headers.length - 1) { novaLinha += ',' }
             }
 

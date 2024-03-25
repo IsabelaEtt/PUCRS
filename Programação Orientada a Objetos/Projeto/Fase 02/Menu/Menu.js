@@ -1,6 +1,6 @@
-import ServicoAeronaves from '../Aeronave/ServicoAeronaves.js'
-import ServicoPilotos from '../Piloto/ServicoPilotos.js'
-import ServicoAerovias from '../Aerovia/ServicoAerovias.js'
+import ServicoAeronaves from '../Servico/ServicoAeronaves.js'
+import ServicoPilotos from '../Servico/ServicoPilotos.js'
+import ServicoAerovias from '../Servico/ServicoAerovias.js'
 import { validarOpcaoMenu, pegarEntradaUsuario } from '../utils.js'
 // trabalhar ingestão de dependência para não ficar fazendo esses imports
 // import * as utils from '../utils.js' -> forma de importar tudo, sem ter que ficar declarando todas as funções
@@ -40,6 +40,10 @@ export default class Menu {
 
         if (opcao === 3) {
             this.#menuAerovias()
+        }
+
+        if (opcao === 4) {
+            this.encerrar()
         }
     }      
     
@@ -125,5 +129,12 @@ export default class Menu {
         }
 
         this.#menuAerovias()
+    }
+
+    encerrar () {
+        this.#servicoAeronaves.salvarDados()
+        this.#servicoAerovias.salvarDados()
+        this.#servicoPilotos.salvarDados()
+        console.log('Tchau :)')
     }
 }

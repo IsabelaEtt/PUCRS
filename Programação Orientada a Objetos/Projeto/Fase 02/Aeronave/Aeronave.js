@@ -8,7 +8,7 @@ export default class Aeronave {
     #velocidade
     #autonomia
 
-    constructor (prefixo, tipo, velocidade, autonomia) {
+    constructor ({ prefixo, tipo, velocidade, autonomia }) {
         if (!prefixo) { throw new Erros.CampoNaoRecebido('prefixo') }
         if (!validar.validarTipo(tipo, tiposAeronave)) { throw new Erros.TipoInvalido(tipo, tiposAeronave) }
         if (!validar.validarNumero(velocidade)) { throw new Erros.VelocidadeInvalida(velocidade) }
@@ -20,9 +20,13 @@ export default class Aeronave {
         this.#autonomia = autonomia
     }
 
-    prefixo() { return this.#prefixo }
+    get prefixo() { return this.#prefixo }
 
-    velocidade () { return this.#velocidade }
+    get tipo() { return this.#tipo }
+
+    get velocidade () { return this.#velocidade }
+
+    get autonomia () { return this.#autonomia }
 
     checarAltitudesPermitidas () {
         const alturas = []

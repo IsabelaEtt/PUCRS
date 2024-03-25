@@ -1,0 +1,5 @@
+prefixo,tipo,velocidade,autonomia,nomeCIA,pesoMax,maxPassageiros,respManutencao
+ISAPP,PP,10,10,,,,ETTECHNOLOGIES
+ISACP,CP,10,10,ETTECHNOLOGIES,,10,
+ISACC,CC,10,10,ETTECHNOLOGIES,10,,
+ISAPP2,PP,10,10,,,,ETTECHNOLOGIES

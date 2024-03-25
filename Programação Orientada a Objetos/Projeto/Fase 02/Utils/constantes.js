@@ -1,6 +1,9 @@
 // Aeronave
-export const tiposAeronaveComercial = ['CC', 'CP']
-export const tiposAeronaveParticular = ['PP']
+export const tipoAeronaveParticular = 'PP'
+export const tipoAeronaveComercialCarga = 'CC'
+export const tipoAeronaveComercialPessoas = 'CP'
+export const tiposAeronaveParticular = [tipoAeronaveParticular]
+export const tiposAeronaveComercial = [tipoAeronaveComercialCarga, tipoAeronaveComercialPessoas]
 export const tiposAeronave = [...tiposAeronaveComercial, ...tiposAeronaveParticular]
 
 // Dados

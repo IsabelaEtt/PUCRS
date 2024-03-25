@@ -5,7 +5,7 @@ export default class Piloto {
     #nome
     #habilitacaoAtiva
 
-    constructor (matricula, nome, habilitacaoAtiva) {
+    constructor ({ matricula, nome, habilitacaoAtiva }) {
         if (!matricula) { throw new Erros.CampoNaoRecebido('matricula') }
         if (!nome) { throw new Erros.CampoNaoRecebido('nome') }
 
@@ -14,7 +14,11 @@ export default class Piloto {
         this.#habilitacaoAtiva = habilitacaoAtiva === true
     }
 
-    matricula () { return this.#matricula }
+    get matricula () { return this.#matricula }
+
+    get nome () { return this.#nome }
+
+    get habilitacaoAtiva () { return this.#habilitacaoAtiva }
 
     toString () {
         return `matrcula: ${this.#matricula}; nome: ${this.#nome}; status habilitação: ${this.#habilitacaoAtiva ? 'ativa' : 'inativa'}`
