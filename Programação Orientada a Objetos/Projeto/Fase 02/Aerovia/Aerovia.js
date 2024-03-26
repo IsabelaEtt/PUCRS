@@ -1,5 +1,4 @@
 import * as Erros from '../Erros/ErroAerovia.js'
-import * as validar from '../Utils/validarDados.js'
 
 export default class Aerovia {
     #id
@@ -11,7 +10,7 @@ export default class Aerovia {
         if (!id) { throw new Erros.CampoNaoRecebido('id') }
         if (!origem) { throw new Erros.CampoNaoRecebido('origem') }
         if (!destino) { throw new Erros.CampoNaoRecebido('destino') }
-        if (!validar.validarNumero(tamanho)) { throw new Erros.TamanhoInvalido(tamanho) }
+        if (isNaN(tamanho) || tamanho < 0) { throw new Erros.TamanhoInvalido(tamanho) }
 
         this.#id = id
         this.#origem = origem

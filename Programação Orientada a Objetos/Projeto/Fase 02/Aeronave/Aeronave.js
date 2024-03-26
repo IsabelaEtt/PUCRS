@@ -1,6 +1,5 @@
 import { tiposAeronave } from '../Utils/constantes.js'
 import * as Erros from '../Erros/ErroAeronave.js'
-import * as validar from '../Utils/validarDados.js'
 
 export default class Aeronave {
     #prefixo 
@@ -10,10 +9,10 @@ export default class Aeronave {
 
     constructor ({ prefixo, tipo, velocidade, autonomia }) {
         if (!prefixo) { throw new Erros.CampoNaoRecebido('prefixo') }
-        if (!validar.validarTipo(tipo, tiposAeronave)) { throw new Erros.TipoInvalido(tipo, tiposAeronave) }
-        if (!validar.validarNumero(velocidade)) { throw new Erros.VelocidadeInvalida(velocidade) }
-        if (!validar.validarNumero(autonomia)) { throw new Erros.AutonomiaInvalida(autonomia) }
-    
+        if (!tiposAeronave.includes(tipo)) { throw new Erros.TipoInvalido(tipo, tiposAeronave) }
+        if (isNaN(velocidade) || velocidade < 0) { throw new Erros.VelocidadeInvalida(velocidade) }
+        if (isNaN(autonomia) || autonomia < 0) { throw new Erros.AutonomiaInvalida(autonomia) }
+
         this.#prefixo = prefixo
         this.#tipo = tipo
         this.#velocidade = velocidade

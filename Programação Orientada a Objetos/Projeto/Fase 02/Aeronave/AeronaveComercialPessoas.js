@@ -1,13 +1,12 @@
 import AeronaveComercial from './AeronaveComercial.js';
 import { tipoAeronaveComercialPessoas } from '../Utils/constantes.js'
 import * as Erros from '../Erros/ErroAeronave.js'
-import * as validar from '../Utils/validarDados.js'
 
 export default class AeronaveComercialPessoas extends AeronaveComercial {
     #maxPassageiros
 
     constructor ({ prefixo, velocidade, autonomia, nomeCIA, maxPassageiros }) {
-        if (!validar.validarNumero(maxPassageiros)) { throw new Erros.MaxPassageirosInvalido(maxPassageiros) }
+        if (isNaN(maxPassageiros) || maxPassageiros < 0) { throw new Erros.MaxPassageirosInvalido(maxPassageiros) }
 
         super({ prefixo, tipo: tipoAeronaveComercialPessoas, velocidade, autonomia, nomeCIA })
         this.#maxPassageiros = maxPassageiros
