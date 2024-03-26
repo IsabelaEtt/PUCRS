@@ -1,18 +1,17 @@
 import AeronaveParticular from '../Aeronave/AeronaveParticular.js';
 import AeronaveComercialPessoas from '../Aeronave/AeronaveComercialPessoas.js';
 import AeronaveComercialCarga from '../Aeronave/AeronaveComercialCarga.js';
-import Dados from '../Dados/Dados.js'
-import { validarOpcaoMenu, pegarEntradaUsuario } from '../Utils/receberDados.js'
 import { tiposAeronave, tipoAeronaveComercialCarga, tipoAeronaveComercialPessoas, tipoAeronaveParticular } from '../Utils/constantes.js'
-import * as validar from '../Utils/validarDados.js'
 
 export default class ServicoAeronaves {
     #aeronaves
     #dados
+    #prompt
 
-    constructor () {
+    constructor (dados, prompt) {
         this.#aeronaves = []
-        this.#dados = new Dados()
+        this.#dados = dados
+        this.#prompt = prompt
 
         this.#pegarAeronaves()
     }
@@ -22,8 +21,8 @@ export default class ServicoAeronaves {
 
         const aeronave = {
             prefixo: this.#pegarPrefixo(),
-            velocidade: this.#pegarVelocidade(),
-            autonomia: this.#pegarAutonomia()
+            velocidade: this.#prompt.pedirNumero('Qual a velocidade da aeronave (km/h)?', 1),
+            autonomia: this.#prompt.pedirNumero('Qual a autonomia da aeronave (km)?', 1)
         }
 
         const tipo = this.#pegarTipo()
@@ -31,18 +30,18 @@ export default class ServicoAeronaves {
         let ClasseAeronave
 
         if (tipo === 1) {
-            aeronave.respManutencao = pegarEntradaUsuario('Qual o nome da empresa responsável pela manutenção?')
+            aeronave.respManutencao = this.#prompt.perguntar('Qual o nome da empresa responsável pela manutenção?')
             ClasseAeronave = AeronaveParticular
         } else {
-            aeronave.nomeCIA = pegarEntradaUsuario('Qual o nome da companhia aérea?')
+            aeronave.nomeCIA = this.#prompt.perguntar('Qual o nome da companhia aérea?')
 
             if (tipo === 2) {
-                aeronave.maxPassageiros = this.#pegarMaxPassageiros()
+                aeronave.maxPassageiros = this.#prompt.pedirNumero('Qual a quantidade máxima de passageiros permitida?', 1, undefined, true)
                 ClasseAeronave = AeronaveComercialPessoas
             }
     
             if (tipo === 3) {
-                aeronave.pesoMax = this.#pegarPesoMax()
+                aeronave.pesoMax = this.#prompt.pedirNumero('Qual o peso máximo suportado pela aeronave (toneladas)?', 1)
                 ClasseAeronave = AeronaveComercialCarga
             }
         }
@@ -52,7 +51,7 @@ export default class ServicoAeronaves {
     }
 
     #pegarPrefixo () {
-        const prefixo = pegarEntradaUsuario('Qual o prefixo da nova aeronave?')
+        const prefixo = this.#prompt.perguntar('Qual o prefixo da nova aeronave?')
 
         if (this.checarSeAeronaveExiste(prefixo)) {
             console.log(`Aeronave ${prefixo} já está cadastrada...`)
@@ -63,63 +62,14 @@ export default class ServicoAeronaves {
     }
 
     #pegarTipo () {
-        const pergunta = 'Qual o tipo da aeronave?' +
-            '\n1) Particular Pequeno Porte' +
-            '\n2) Comercial de Passageiros' +
-            '\n3) Comercial de Carga'
-
-        const tipo = Number(pegarEntradaUsuario(pergunta))
-
-        if (!validarOpcaoMenu(tipo, 1, 3)) {
-            console.log('Por favor selecione um tipo válido...')
-            return this.#pegarTipo()
-        }
-
-        return tipo
-    }
-
-    #pegarVelocidade () {
-        const velocidade = Number(pegarEntradaUsuario('Qual a velocidade da aeronave (km/h)?'))
-
-        if (isNaN(velocidade) || velocidade < 1) {
-            console.log('Por favor informe uma velocidade válida...')
-            return this.#pegarVelocidade()
-        }
-
-        return velocidade
-    }
-
-    #pegarAutonomia () {
-        const autonomia = Number(pegarEntradaUsuario('Qual a autonomia da aeronave (km)?'))
-
-        if (isNaN(autonomia) || autonomia < 1) {
-            console.log('Por favor informe uma autonomia válida...')
-            return this.#pegarAutonomia()
-        }
-
-        return autonomia
-    }
-
-    #pegarMaxPassageiros () {
-        const maxPassageiros = Number(pegarEntradaUsuario('Qual a quantidade máxima de passageiros permitida?'))
-
-        if (isNaN(maxPassageiros) || maxPassageiros < 1 || !Number.isInteger(maxPassageiros)) {
-            console.log('Por favor informe um número válido de passageiros...')
-            return this.#pegarMaxPassageiros()
-        }
-
-        return maxPassageiros
-    }
-
-    #pegarPesoMax () {
-        const pesoMax = Number(pegarEntradaUsuario('Qual o peso máximo suportado pela aeronave (toneladas)?'))
-
-        if (isNaN(pesoMax) || pesoMax < 1) {
-            console.log('Por favor informe um peso válido...')
-            return this.#pegarPesoMax()
-        }
-
-        return pesoMax
+        const pergunta = 'Qual o tipo da aeronave?'
+        const opcoes = [
+            'Particular Pequeno Porte',
+            'Comercial de Passageiros',
+            'Comercial de Carga'
+        ]
+        
+        return this.#prompt.menuDeOpcoes(pergunta, opcoes)
     }
 
     checarSeAeronaveExiste (prefixo) {
@@ -147,7 +97,7 @@ export default class ServicoAeronaves {
                 console.log(`Aeronave ${prefixo} já está cadastrada, pulando...`)
             }
            
-            if (!validar.validarTipo(tipo, tiposAeronave)) {
+            if (!tiposAeronave.includes(tipo)) {
                 console.log(`Aeronave ${prefixo} com tipo invalido, pulando...`)
             }
 

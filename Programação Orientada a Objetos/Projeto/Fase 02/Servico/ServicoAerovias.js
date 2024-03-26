@@ -1,14 +1,14 @@
 import Aerovia from '../Aerovia/Aerovia.js'
-import Dados from '../Dados/Dados.js'
-import { pegarEntradaUsuario } from '../Utils/receberDados.js'
 
 export default class ServicoAerovias {
     #aerovias
     #dados
+    #prompt
 
-    constructor () {
+    constructor (dados, prompt) {
         this.#aerovias = []
-        this.#dados = new Dados()
+        this.#dados = dados
+        this.#prompt = prompt
 
         this.#pegarAerovias()
     }
@@ -18,16 +18,16 @@ export default class ServicoAerovias {
 
         const aerovia = {
             id: this.#pegarId(),
-            origem: pegarEntradaUsuario('Qual o aeroporto de origem?'),
-            destino: pegarEntradaUsuario('Qual o aeroporto de destino?'),
-            tamanho: this.#pegarTamanho()
+            origem: this.#prompt.perguntar('Qual o aeroporto de origem?'),
+            destino: this.#prompt.perguntar('Qual o aeroporto de destino?'),
+            tamanho: this.#prompt.pedirNumero('Qual o tamanho da aerovia (km)?', 1)
         }
 
         this.#criarInstanciaAerovia(aerovia)
     }
 
     #pegarId () {
-        const id = pegarEntradaUsuario('Qual o identificador da nova aerovia?')
+        const id = this.#prompt.perguntar('Qual o identificador da nova aerovia?')
 
         if (this.checarSeAeroviaExiste(id)) {
             console.log(`Aerovia ${id} já está cadastrada...`)
@@ -35,17 +35,6 @@ export default class ServicoAerovias {
         }
 
         return id
-    }
-
-    #pegarTamanho () {
-        const tamanho = Number(pegarEntradaUsuario('Qual o tamanho da aerovia (km)?'))
-
-        if (isNaN(tamanho) || tamanho < 1) {
-            console.log('Por favor informe um tamanho válido...')
-            return this.#pegarTamanho()
-        }
-
-        return tamanho
     }
 
     checarSeAeroviaExiste (id) {

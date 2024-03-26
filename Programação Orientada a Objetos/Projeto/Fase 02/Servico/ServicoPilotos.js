@@ -1,14 +1,14 @@
 import Piloto from '../Piloto/Piloto.js';
-import Dados from '../Dados/Dados.js'
-import { validarOpcaoMenu, pegarEntradaUsuario } from '../Utils/receberDados.js'
 
 export default class ServicoPiloto {
     #pilotos
     #dados
+    #prompt
 
-    constructor () {
+    constructor (dados, prompt) {
         this.#pilotos = []
-        this.#dados = new Dados()
+        this.#dados = dados
+        this.#prompt = prompt
 
         this.#pegarPilotos()
     }
@@ -18,15 +18,15 @@ export default class ServicoPiloto {
 
         const piloto = {
             matricula: this.#pegarMatricula(),
-            nome: pegarEntradaUsuario('Qual o nome do piloto?'),
-            habilitacaoAtiva: this.#pegarStatusHabilitacao()
+            nome: this.#prompt.perguntar('Qual o nome do piloto?'),
+            habilitacaoAtiva: this.#prompt.menuDeOpcoes('Qual o status da habilitacao?', ['Ativa', 'Inativa']) === 1
         }
 
         this.#criarInstanciaPiloto(piloto)
     }
 
     #pegarMatricula () {
-        const matricula = pegarEntradaUsuario('Qual a matricula do novo piloto?')
+        const matricula = this.#prompt.perguntar('Qual a matricula do novo piloto?')
 
         if (this.checarSePilotoExiste(matricula)) {
             console.log(`Piloto ${matricula} já está cadastrado...`)
@@ -34,21 +34,6 @@ export default class ServicoPiloto {
         }
 
         return matricula
-    }
-
-    #pegarStatusHabilitacao () {
-        const pergunta = 'Qual o status da habilitacao?' +
-            '\n1) Ativa' +
-            '\n2) Inativa'
-
-        const status = Number(pegarEntradaUsuario(pergunta))
-
-        if (!validarOpcaoMenu(status, 1, 2)) {
-            console.log('Por favor selecione um status válido...')
-            return this.#pegarStatusHabilitacao()
-        }
-
-        return status === 1
     }
 
     checarSePilotoExiste (matricula) {
