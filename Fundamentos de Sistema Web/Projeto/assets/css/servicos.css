@@ -1,0 +1,31 @@
+.linhaForm
+{
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+h3
+{
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+}
+
+legend
+{
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.botaoForm
+{
+    margin-top: 40px;
+}
+
+footer
+{
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    margin-top: 40px;
+}
