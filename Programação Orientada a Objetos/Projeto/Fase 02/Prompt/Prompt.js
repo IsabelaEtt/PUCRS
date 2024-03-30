@@ -20,7 +20,7 @@ export default class Prompt {
 
         if (respostaValida) { return resposta }
 
-        const mensagemDeErro = erroPersonalizado || `Por favor informe um número válido...`
+        const mensagemDeErro = erroPersonalizado || `Por favor informe um número válido... (deve ser entre ${valorMin} e ${valorMax})`
         console.log(mensagemDeErro)
         
         return this.pedirNumero(pergunta, valorMin, valorMax, precisaSerInteiro, erroPersonalizado)

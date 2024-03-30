@@ -6,9 +6,8 @@ export default class PlanoDeVoo {
     #matriculaPiloto
     #prefixoAeronave
     #idAerovia
-    #data
-    #altitude
-    #slotHorarios
+    #dataVoo
+    #altitudeVoo
     #cancelado
 
     static #idGen = 0
@@ -52,9 +51,8 @@ export default class PlanoDeVoo {
         this.#matriculaPiloto = matriculaPiloto
         this.#prefixoAeronave = prefixoAeronave
         this.#idAerovia = idAerovia
-        this.#data = dataVoo
-        this.#altitude = altitudeVoo
-        this.#slotHorarios = []
+        this.#dataVoo = dataVoo
+        this.#altitudeVoo = altitudeVoo
         this.#cancelado = false
 
         // Regra: a habilitação do piloto tem de estar ativa
@@ -88,10 +86,10 @@ export default class PlanoDeVoo {
         const slotFim = moment(dataVoo).add(tempoDeViagemEmMinutos, 'minutes').endOf('hour')
 
         // Pegando slots de horários necessários e checando se eles possuem agendamento
-        this.#slotHorarios = []
+        const slotHorarios = []
         let possuiAgendamentoNoSlot = false
         for (const slot = moment(dataVoo); slot <= slotFim; slot.add(60, 'minutes')) {
-            this.#slotHorarios.push(slot.hour())
+            slotHorarios.push(slot.hour())
         
             const dataSlot = slot.format("DD-MM-YYYY")
             if (!PlanoDeVoo.#agendamentoAerovias[idAerovia][altitudeVoo][dataSlot]) { PlanoDeVoo.#agendamentoAerovias[idAerovia][altitudeVoo][dataSlot] = {} }
@@ -101,7 +99,7 @@ export default class PlanoDeVoo {
         }
 
         // Regra: não pode haver restrições de horário para o tipo de aeronave
-        for (const horario of this.#slotHorarios) {
+        for (const horario of slotHorarios) {
             if (!horariosPermitidosAeronave.includes(horario)) {
                 this.#cancelado = true
                 console.log('A aeronave selecionada não pode voar no horário selecionado, alterando status para cancelado...')
@@ -125,9 +123,23 @@ export default class PlanoDeVoo {
         }
     }
 
+    get id() { return this.#id }
+
+    get matriculaPiloto() { return this.#matriculaPiloto }
+
+    get prefixoAeronave() { return this.#prefixoAeronave }
+
+    get idAerovia() { return this.#idAerovia }
+
+    get dataVoo() { return this.#dataVoo.format() }
+
+    get altitudeVoo() { return this.#altitudeVoo }
+
+    get cancelado() { return this.#cancelado }
+
     toString () {
         return `Plano de Voo - id: ${this.#id}; piloto: ${this.#matriculaPiloto}; aeronave: ${this.#prefixoAeronave}; ` +
-            `data: ${this.#data.toISOString()}; aerovia: ${this.#idAerovia}; altitude: ${this.#altitude}; ` +
+            `aerovia: ${this.#idAerovia}; dataVoo: ${this.#dataVoo.format()}; altitudeVoo: ${this.#altitudeVoo}; ` +
             `cancelado: ${this.#cancelado ? 'sim' : 'não'}`
     }
 }

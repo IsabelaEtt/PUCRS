@@ -1,5 +1,4 @@
 nome,matricula,habilitacaoAtiva
-ISA,1,false
-Amanda,2,false
-Natalia,3,false
-ISA,123,false
+Isa,1,true
+Amanda,2,true
+Natalia,3,true

@@ -28,7 +28,7 @@ export default class ServicoPiloto {
     #pegarMatricula () {
         const matricula = this.#prompt.perguntar('Qual a matricula do novo piloto?')
 
-        if (this.checarSePilotoExiste(matricula)) {
+        if (this.#checarSePilotoExiste(matricula)) {
             console.log(`Piloto ${matricula} já está cadastrado...`)
             return this.#pegarMatricula()
         }
@@ -36,15 +36,8 @@ export default class ServicoPiloto {
         return matricula
     }
 
-    checarSePilotoExiste (matricula) {
-        return this.#pilotos.findIndex(a => a.matricula === matricula) != -1
-    }
-
-    listarPilotos () {
-        console.log(`\n--- Lista de Pilotos ---`)
-        for (const piloto of this.#pilotos) {
-            console.log(`- ${piloto.toString()}`)
-        }
+    #checarSePilotoExiste (matricula) {
+        return this.#pilotos.findIndex(p => p.matricula === matricula) != -1
     }
 
     #pegarPilotos () {
@@ -52,9 +45,16 @@ export default class ServicoPiloto {
 
         let pilotosSalvos
         try { pilotosSalvos = this.#dados.lerDados('piloto')
-        } catch(e) { return console.log(`Não foi possível pegar as pilotos salvos: ${e.message}`) }
+        } catch(e) { return console.log(`Não foi possível pegar os pilotos salvos: ${e.message}`) }
 
         for (const piloto of pilotosSalvos) {
+            if (this.#checarSePilotoExiste(piloto.matricula)) {
+                console.log(`Piloto ${piloto.matricula} já está cadastrado, pulando...`)
+                continue;
+            }
+
+            piloto.habilitacaoAtiva = piloto.habilitacaoAtiva === 'true'
+
             this.#criarInstanciaPiloto(piloto)
         }
     }
@@ -68,10 +68,27 @@ export default class ServicoPiloto {
         console.log(`Piloto ${novoPiloto.matricula} cadastrado com sucesso!`)
     }
 
+    listarPilotos () {
+        console.log(`\n--- Lista de Pilotos ---`)
+        for (const piloto of this.#pilotos) {
+            console.log(`- ${piloto.toString()}`)
+        }
+    }
+
     salvarDados () {
         console.log('Salvando pilotos...')
 
         try { this.#dados.gravarDados('piloto', this.#pilotos)
         } catch(e) { return console.log(`Não foi possível salvar os pilotos: ${e.message}`) }
+    }
+
+    pegarPilotoPorMatricula (matricula) {
+        const piloto = this.#pilotos.find(p => p.matricula === matricula)
+        if (!piloto) { return }
+
+        return {
+            matriculaPiloto: piloto.matricula,
+            habilitacaoAtivaPiloto: piloto.habilitacaoAtiva
+        }
     }
 }

@@ -2,12 +2,14 @@ export default class Menu {
     #servicoAeronaves
     #servicoPilotos
     #servicoAerovias
+    #servicoPlanosDeVoo
     #prompt
 
-    constructor ({ servicoAeronaves, servicoPilotos, servicoAerovias }, prompt) {
+    constructor (prompt, { servicoAeronaves, servicoPilotos, servicoAerovias, servicoPlanosDeVoo }) {
         this.#servicoAeronaves = servicoAeronaves
         this.#servicoPilotos = servicoPilotos
         this.#servicoAerovias = servicoAerovias
+        this.#servicoPlanosDeVoo = servicoPlanosDeVoo
         this.#prompt = prompt
     }
 
@@ -17,6 +19,7 @@ export default class Menu {
             'Serviço de Aeronaves',
             'Serviço de Pilotos',
             'Serviço de Aerovias',
+            'Serviço de Planos de Voo',
             'Sair'
         ]
 
@@ -29,6 +32,9 @@ export default class Menu {
                 break
             case 3:
                 this.#menuAerovias()
+                break
+            case 4:
+                this.#menuPlanosDeVoo()
                 break
             default:
                 return this.encerrar()
@@ -83,7 +89,8 @@ export default class Menu {
         const pergunta = 'O que você gostaria de fazer?'
         const opcoes = [
             'Cadastrar aerovia',
-            'Listar aerovias',
+            'Listar todas as aerovias',
+            'Listar aerovias entre dois aeroportos',
             'Voltar'
         ]
 
@@ -94,6 +101,9 @@ export default class Menu {
             case 2:
                 this.#servicoAerovias.listarAerovias()
                 break
+            case 3:
+                this.#servicoAerovias.listarAeroviasEntreDoisAeroportos()
+                break
             default:
                 return this.iniciar()
         }
@@ -101,10 +111,37 @@ export default class Menu {
         this.#menuAerovias()
     }
 
+    #menuPlanosDeVoo () {
+        const pergunta = 'O que você gostaria de fazer?'
+        const opcoes = [
+            'Cadastrar plano de voo',
+            'Listar planos de voo',
+            'Buscar plano de voo',
+            'Voltar'
+        ]
+
+        switch (this.#prompt.menuDeOpcoes(pergunta, opcoes)) {
+            case 1:
+                this.#servicoPlanosDeVoo.cadastrarPlanoDeVoo()
+                break
+            case 2:
+                this.#servicoPlanosDeVoo.listarPlanosDeVoo()
+                break
+            case 3: 
+                this.#servicoPlanosDeVoo.buscarPlanoDeVoo()
+                break
+            default:
+                return this.iniciar()
+        }
+
+        this.#menuPlanosDeVoo()
+    }
+
     encerrar () {
         this.#servicoAeronaves.salvarDados()
         this.#servicoAerovias.salvarDados()
         this.#servicoPilotos.salvarDados()
+        this.#servicoPlanosDeVoo.salvarDados()
         console.log('Tchau :)')
     }
 }

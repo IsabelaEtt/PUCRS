@@ -29,7 +29,7 @@ export default class ServicoAerovias {
     #pegarId () {
         const id = this.#prompt.perguntar('Qual o identificador da nova aerovia?')
 
-        if (this.checarSeAeroviaExiste(id)) {
+        if (this.#checarSeAeroviaExiste(id)) {
             console.log(`Aerovia ${id} já está cadastrada...`)
             return this.#pegarId()
         }
@@ -37,15 +37,8 @@ export default class ServicoAerovias {
         return id
     }
 
-    checarSeAeroviaExiste (id) {
+    #checarSeAeroviaExiste (id) {
         return this.#aerovias.findIndex(a => a.id === id) != -1
-    }
-
-    listarAerovias () {
-        console.log(`\n--- Lista de Aerovias ---`)
-        for (const aerovia of this.#aerovias) {
-            console.log(`- ${aerovia.toString()}`)
-        }
     }
 
     #pegarAerovias () {
@@ -56,6 +49,11 @@ export default class ServicoAerovias {
         } catch(e) { return console.log(`Não foi possível pegar as aerovias salvas: ${e.message}`) }
 
         for (const aerovia of aeroviasSalvas) {
+            if (this.#checarSeAeroviaExiste(aerovia.id)) {
+                console.log(`Aerovia ${aerovia.id} já está cadastrada, pulando...`)
+                continue;
+            }
+
             this.#criarInstanciaAerovia(aerovia)
         }
     }
@@ -69,10 +67,43 @@ export default class ServicoAerovias {
         console.log(`Aerovia ${novaAerovia.id} cadastrada com sucesso!`)
     }
 
+    listarAerovias () {
+        console.log(`\n--- Lista de Aerovias ---`)
+        for (const aerovia of this.#aerovias) {
+            console.log(`- ${aerovia.toString()}`)
+        }
+    }
+
     salvarDados () {
         console.log('Salvando aerovias...')
 
         try { this.#dados.gravarDados('aerovia', this.#aerovias)
         } catch(e) { return console.log(`Não foi possível salvar as aerovias: ${e.message}`) }
+    }
+
+    pegarAeroviaPorId (id) {
+        const aerovia = this.#aerovias.find(a => a.id === id)
+        if (!aerovia) { return }
+
+        return {
+            idAerovia: aerovia.id,
+            tamanhoAerovia: aerovia.tamanho
+        }
+    }
+
+    listarAeroviasEntreDoisAeroportos () {
+        const origem = this.#prompt.perguntar('Qual o aeroporto de origem?')
+        const destino = this.#prompt.perguntar('Qual o aeroporto de destino?')
+
+        const aeroviasEncontradas = this.#aerovias.filter(a => a.origem == origem && a.destino == destino)
+        if (aeroviasEncontradas.length == 0) { 
+            console.log(`\nNão existe nenhuma aerovia para esse percurso :(`)
+            return
+        }
+
+        console.log(`\n--- Lista de Aerovias entre ${origem} e ${destino} ---`)
+        for (const aerovia of aeroviasEncontradas) {
+            console.log(`- ${aerovia.toString()}`)
+        }
     }
 }

@@ -47,13 +47,12 @@ export default class ServicoAeronaves {
         }
 
         this.#criarInstanciaAeronave(ClasseAeronave, aeronave)
-
     }
 
     #pegarPrefixo () {
         const prefixo = this.#prompt.perguntar('Qual o prefixo da nova aeronave?')
 
-        if (this.checarSeAeronaveExiste(prefixo)) {
+        if (this.#checarSeAeronaveExiste(prefixo)) {
             console.log(`Aeronave ${prefixo} já está cadastrada...`)
             return this.#pegarPrefixo()
         }
@@ -72,15 +71,8 @@ export default class ServicoAeronaves {
         return this.#prompt.menuDeOpcoes(pergunta, opcoes)
     }
 
-    checarSeAeronaveExiste (prefixo) {
+    #checarSeAeronaveExiste (prefixo) {
         return this.#aeronaves.findIndex(a => a.prefixo === prefixo) != -1
-    }
-
-    listarAeronaves () {
-        console.log(`\n--- Lista de Aeronaves ---`)
-        for (const aeronave of this.#aeronaves) {
-            console.log(`- ${aeronave.toString()}`)
-        }
     }
 
     #pegarAeronaves () {
@@ -93,12 +85,14 @@ export default class ServicoAeronaves {
         for (const aeronave of aeronavesSalvas) {
             const { prefixo, tipo } = aeronave
 
-            if (this.checarSeAeronaveExiste(prefixo)) {
+            if (this.#checarSeAeronaveExiste(prefixo)) {
                 console.log(`Aeronave ${prefixo} já está cadastrada, pulando...`)
+                continue;
             }
            
             if (!tiposAeronave.includes(tipo)) {
                 console.log(`Aeronave ${prefixo} com tipo invalido, pulando...`)
+                continue;
             }
 
             let ClasseAeronave
@@ -119,10 +113,30 @@ export default class ServicoAeronaves {
         console.log(`Aeronave ${novaAeronave.prefixo} cadastrada com sucesso!`)
     }
 
+    listarAeronaves () {
+        console.log(`\n--- Lista de Aeronaves ---`)
+        for (const aeronave of this.#aeronaves) {
+            console.log(`- ${aeronave.toString()}`)
+        }
+    }
+
     salvarDados () {
         console.log('Salvando aeronaves...')
 
         try { this.#dados.gravarDados('aeronave', this.#aeronaves)
         } catch(e) { return console.log(`Não foi possível salvar as aeronaves: ${e.message}`) }
+    }
+
+    pegarAeronavePorPrefixo (prefixo) {
+        const aeronave = this.#aeronaves.find(a => a.prefixo === prefixo)
+        if (!aeronave) { return }
+
+        return {
+            prefixoAeronave: aeronave.prefixo,
+            velocidadeAeronave: aeronave.velocidade,
+            autonomiaAeronave: aeronave.autonomia,
+            altitudesPermitidasAeronave: aeronave.checarAltitudesPermitidas(),
+            horariosPermitidosAeronave: aeronave.checarHorariosPermitidos()
+        }
     }
 }

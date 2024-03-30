@@ -19,5 +19,9 @@ export const tiposDados = new Map([
     ['piloto', {
         headers: ['nome', 'matricula', 'habilitacaoAtiva'],
         nome: './Dados/piloto.csv'
+    }],
+    ['planoDeVoo', {
+        headers: ['id', 'matriculaPiloto', 'prefixoAeronave', 'idAerovia', 'dataVoo', 'altitudeVoo', 'cancelado'],
+        nome: './Dados/planoDeVoo.csv'
     }]
 ])
