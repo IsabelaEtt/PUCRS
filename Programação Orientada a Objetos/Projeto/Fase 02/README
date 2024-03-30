@@ -1,8 +1,8 @@
-# PROGRAMAÇÃO ORIENTADA A OBJETOS - PROJETO - FASE 01
+# PROGRAMAÇÃO ORIENTADA A OBJETOS - PROJETO - FASE 02
 Aluna: Isabela Canelas Ett
 
 ## Objetivo
-O objetivo dessa aplicação é permitir o cadastro de aeronaves, pilotos e aerovias de acordo com o especificado pela documentação do projeto
+O objetivo dessa aplicação é permitir o cadastro de aeronaves, pilotos, aerovias e planos de voo de acordo com o especificado pela documentação do projeto
 
 ## Antes de começar
 Antes de rodar o projeto é necessário instalar as dependências necessárias, para isso execute o comando `npm i`
